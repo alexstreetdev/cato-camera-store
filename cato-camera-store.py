@@ -5,6 +5,7 @@ import os.path
 app = Flask(__name__)
 # removes standard 404 flask message
 app.config["ERROR_404_HELP"]=False
+app.config["UPLOAD_FOLDER"]="./app/cato-camera-store"
 api = Api(app)
 
 class MovementImage(Resource):
@@ -12,7 +13,7 @@ class MovementImage(Resource):
         file = request.files['media']
         if file:
             filename = fname + '.jpg'
-            file.save(filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             msg = "/movement/" + filename
             return msg, 201
 
@@ -20,6 +21,7 @@ class MovementImage(Resource):
 
     def get(self, fname):
         filename = fname + '.jpg'
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         if os.path.isfile(filename):
             return send_file(filename, mimetype='image/jpeg')
         else:
