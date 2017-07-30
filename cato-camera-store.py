@@ -5,7 +5,7 @@ import os.path
 app = Flask(__name__)
 # removes standard 404 flask message
 app.config["ERROR_404_HELP"]=False
-app.config["UPLOAD_FOLDER"]="./app/cato-camera-store"
+app.config["UPLOAD_FOLDER"]="/app/cato-camera-store"
 api = Api(app)
 
 class MovementImage(Resource):
