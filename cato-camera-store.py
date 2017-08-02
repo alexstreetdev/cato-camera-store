@@ -13,8 +13,10 @@ class MovementImage(Resource):
         file = request.files['media']
         if file:
             filename = fname + '.jpg'
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            msg = "/movement/" + filename
+            fpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            print fpath
+            file.save(fpath)
+            msg = "/movement/" + filename + ":" + fpath
             return msg, 201
 
         abort(400, message = "No file supplied")
