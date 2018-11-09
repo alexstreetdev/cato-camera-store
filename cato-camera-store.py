@@ -22,7 +22,7 @@ class MovementImage(Resource):
         abort(400, message = "No file supplied")
 
     def get(self, fname):
-        filename = os.path.join(app.config['UPLOAD_FOLDER'], fname)
+        filename = os.path.join(app.config['UPLOAD_FOLDER'],app.config['FILEPATH'], fname)
         if os.path.isfile(filename):
             return send_file(filename, mimetype='image/jpeg')
         else:
