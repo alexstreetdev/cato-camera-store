@@ -5,25 +5,23 @@ import os.path
 app = Flask(__name__)
 # removes standard 404 flask message
 app.config["ERROR_404_HELP"]=False
-app.config["UPLOAD_FOLDER"]="/app/cato-camera-store"
+app.config["UPLOAD_FOLDER"]="/app/cato-camera-store/colin"
 api = Api(app)
 
 class MovementImage(Resource):
     def post(self, fname):
         file = request.files['media']
         if file:
-            filename = fname + '.jpg'
-            fpath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            print fpath
+            fpath = os.path.join(app.config['UPLOAD_FOLDER'], fname)
+            print(fpath)
             file.save(fpath)
-            msg = "/movement/" + filename + ":" + fpath
+            msg = "/movement/" + fname + ":" + fpath
             return msg, 201
 
         abort(400, message = "No file supplied")
 
     def get(self, fname):
-        filename = fname + '.jpg'
-        filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], fname)
         if os.path.isfile(filename):
             return send_file(filename, mimetype='image/jpeg')
         else:
