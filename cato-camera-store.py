@@ -32,4 +32,5 @@ api.add_resource(MovementImage, '/movement/<string:fname>')
 
 if __name__ == '__main__':
 	app.config['FILEPATH']=sys.argv[1]
-    app.run(host="0.0.0.0", port=5001)
+	app.run(host="0.0.0.0", port=5001)
+
